@@ -15,11 +15,11 @@ public class Vista_Producto {
        
         Scanner sc = new Scanner(System.in);
         int opcion;
-        System.out.println("--Menú Productos -------------------");
-        System.out.println("   2.1 Modificar nombre de producto");
-        System.out.println("   2.2 Modificar precio de producto");
-        System.out.println("   2.3 Modificar código de producto");
-        System.out.println("------------------------------------");
+        System.out.println("-----Menú Productos ---------------");
+        System.out.println("   1 Modificar nombre de producto");
+        System.out.println("   2 Modificar precio de producto");
+        System.out.println("   3 Modificar código de producto");
+        System.out.println("-----------------------------------");
         do {
             System.out.println("Ingrese la op :");
             opcion = sc.nextInt();

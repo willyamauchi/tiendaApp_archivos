@@ -2,6 +2,7 @@ package empleado.control;
 
 import empleado.dominio.Empleado;
 import empleado.persistencia.EmpleadoDAOImp;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,26 +16,37 @@ public class Empleado_Controlador {
         this.empleadoDaoImp = new EmpleadoDAOImp();
     }
 
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
     public void login() {
         Scanner sc = new Scanner(System.in);
 
         while (this.empleado == null) {
-            System.out.println("Ingrese su codigo:");
-            int codigo = sc.nextInt();
-            Empleado empleado = empleadoDaoImp.getEmpleadoporCodigo(codigo);
-            if (empleado != null) {
-                System.out.println("Ingrese su Contraseña:");
-                String pass = sc.next();
-                if (empleado.getPassword().equals(pass)) {
-                    System.out.println("");
-                    System.out.println("\t---- Bienvenido " + empleado.getNombre()+" ----");
-                    this.empleado = empleado;
+            try {
+                System.out.println("Ingrese su codigo:");
+                int codigo = sc.nextInt();
+
+                Empleado empleado = empleadoDaoImp.getEmpleadoporCodigo(codigo);
+                if (empleado != null) {
+                    System.out.println("Ingrese su Contraseña:");
+                    String pass = sc.next();
+                    if (empleado.getPassword().equals(pass)) {
+                        System.out.println("");
+                        System.out.println("\t---- Bienvenido " + empleado.getNombre() + " ----");
+                        this.empleado = empleado;
+                    } else {
+                        System.out.println("Contraseña incorrecto");
+                    }
                 } else {
-                    System.out.println("Contraseña incorrecto");
+                    System.out.println("Codigo incorrecto");
                 }
-            } else {
-                System.out.println("Codigo incorrecto");
+            } catch (InputMismatchException e) {
+                System.out.println("Solo se adminten numeros");
+                sc.next();
             }
+
         }
     }
 

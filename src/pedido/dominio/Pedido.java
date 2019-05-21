@@ -16,9 +16,7 @@ public class Pedido {
         this.total = 0;
     }
 
-    public Pedido() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
     public void addProducto(Producto producto){
         cesta.add(producto);
         total+=producto.getPrecio();

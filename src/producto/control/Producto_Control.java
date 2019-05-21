@@ -1,5 +1,6 @@
 package producto.control;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import producto.dominio.Producto;
@@ -17,31 +18,39 @@ public class Producto_Control {
         Scanner sc = new Scanner(System.in);
         int codigo, codigoNuevo, indice = 0;
         String nombreFile = "productos.txt";
-        boolean productoOK;
-        // List<Producto> producto= new ProductoDAO_Imp().leerproducto();
-        System.out.println("Ingrese el codigo...");
-        codigo = sc.nextInt();
-        if (codigo > 0) {
-            for (Producto producto1 : productos) {
-                if (codigo == producto1.getCodigo()) {
-                    System.out.println("Ingrese el nuevo codigo a cambiar...");
-                    codigoNuevo = sc.nextInt();
-                    for (Producto producto2 : productos) {
-                        if (!(codigoNuevo == producto2.getCodigo())) {
-                            productos.get(indice).setCodigo(codigoNuevo);
-                            productoOK = new ProductoDAO_Imp().actualizarProducto(productos);
-                            if (productoOK) {
-                                System.out.println("Se guardo satisfactoriamente el archivo productos.txt ");
+        boolean productoOK, archivoOK = true;
+        mostarProductos();
+        while (archivoOK) {
+            try {
+                System.out.println("Ingrese el codigo...");
+                codigo = sc.nextInt();
+                for (Producto producto1 : productos) {
+                    if (codigo == producto1.getCodigo()) {
+                        System.out.println("Ingrese el nuevo codigo a cambiar...");
+                        codigoNuevo = sc.nextInt();
+                        for (Producto producto2 : productos) {
+                            if (!(codigoNuevo == producto2.getCodigo())) {
+                                productos.get(indice).setCodigo(codigoNuevo);
+                                productoOK = new ProductoDAO_Imp().actualizarProducto(productos);
+                                if (productoOK) {
+                                    System.out.println("Se guardo satisfactoriamente el archivo productos.txt ");
+                                    archivoOK = false;
+                                } else {
+                                    System.out.println("NO se ha guardo archivo productos.txt ");
+
+                                }
+
                             } else {
-                                System.out.println("NO se ha guardo archivo productos.txt ");
-
+                                System.out.println("El codigo Ingresdo ya esxite!!!");
+                                break;
                             }
-
-                        } else {
-                            System.out.println("el codigo ya exite...");
                         }
                     }
+                    indice++;
                 }
+            } catch (InputMismatchException e) {
+                System.out.println("Solo se adminten numeros");
+                sc.next();
             }
         }
 
@@ -98,7 +107,7 @@ public class Producto_Control {
 
     public void modificarNombreProducto() {
         Scanner sc = new Scanner(System.in);
-    //    List<Producto> producto = new Producto().leerProductos();
+        //    List<Producto> producto = new Producto().leerProductos();
         int codigo, indice = 0;
         String nombreFile = "productos.txt";
         boolean productoOK;
@@ -121,6 +130,8 @@ public class Producto_Control {
 
                         }
 
+                    } else {
+                        System.out.println("No se ha guardado el archivo..... \n El nombre ingresado es igual al anterior");
                     }
                 }
                 indice++;

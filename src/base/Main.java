@@ -8,6 +8,9 @@ public class Main {
        
         Tienda_Controlador tienda = new Tienda_Controlador();
         tienda.star();
+//
+//        Pedido_Control pedido = new Pedido_Control();
+//        pedido.addPedidoCesta();
     }
 
 }

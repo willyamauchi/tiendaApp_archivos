@@ -1,4 +1,4 @@
-[producto] 
+﻿[producto] 
    [codigo]
    222
    [nombre]
@@ -20,7 +20,7 @@
    [codigo]
    224
    [nombre]
-   Lenovo Ideapad 530S
+   Lenovo
    [descripcion]
    Ordenador portátil con Intel Core i5, 8GB RAM, 256GB SSD
    [precio]
