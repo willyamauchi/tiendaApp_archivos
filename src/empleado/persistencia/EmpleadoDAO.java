@@ -1,14 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package empleado.persistencia;
 
-/**
- *
- * @author will1
- */
+import empleado.dominio.Empleado;
+import java.util.List;
+
 public interface EmpleadoDAO {
     
+    List<Empleado> leerEmpleado();
+    
+    Empleado getEmpleadoporCodigo (int codigo);
+    
+    boolean actualizarEmpleado(List<Empleado> empleados);
 }
