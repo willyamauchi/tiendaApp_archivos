@@ -12,6 +12,7 @@ public class PedidoDAO_Imp implements PedidoDAO {
         String archivoFactura = "Factura.txt";
         try ( var archivo = Files.newBufferedWriter(Paths.get(archivoFactura))) {
             archivo.write("Factura Simplificada");
+            System.out.println("");
             System.out.println("Factura Simplificada");
             archivo.newLine();
             archivo.write("---------------------------------------");
@@ -41,9 +42,10 @@ public class PedidoDAO_Imp implements PedidoDAO {
             archivo.newLine();
             archivo.write("Atendido por: "+pedido.getEmpleado());
             System.out.println("Atendido por: "+pedido.getEmpleado()+"\n");
-            System.out.println("El archivo se guardo correcto...");
+            System.out.println("El archivo factura se guardo correcto...");
             return true;
         } catch (Exception e) {
+            System.out.println("Error al crear el archivo");
         }
 
         return false;

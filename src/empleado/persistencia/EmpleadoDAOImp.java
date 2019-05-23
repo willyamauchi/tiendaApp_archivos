@@ -1,5 +1,7 @@
 package empleado.persistencia;
 
+import Excepcion.CodigoError;
+import Excepcion.usuarioIncorrecto;
 import empleado.dominio.Empleado;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -65,12 +67,16 @@ public class EmpleadoDAOImp implements EmpleadoDAO {
     public Empleado getEmpleadoporCodigo(int codigo) {
        List<Empleado> empleado = leerEmpleado();
         for (Empleado empleado1 : empleado) {
+            try{
             if (codigo==empleado1.getCodigo()) {
                 return empleado1;
             }
+            }catch(Exception e){
+                System.out.println("Error");
+            }
         }
-        return null;
-//To change body of generated methods, choose Tools | Templates.
+        throw new usuarioIncorrecto(CodigoError.ERROR_USUARIO_INCORRECTO);
+        
     }
 
     @Override

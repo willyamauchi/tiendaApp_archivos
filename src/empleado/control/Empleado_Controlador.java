@@ -1,5 +1,7 @@
 package empleado.control;
 
+import Excepcion.CodigoError;
+import Excepcion.usuarioIncorrecto;
 import empleado.dominio.Empleado;
 import empleado.persistencia.EmpleadoDAOImp;
 import java.util.InputMismatchException;
@@ -32,28 +34,35 @@ public class Empleado_Controlador {
                 if (empleado != null) {
                     System.out.println("Ingrese su Contraseña:");
                     String pass = sc.next();
-                    if (empleado.getPassword().equals(pass)) {
-                        System.out.println("");
-                        System.out.println("\t---- Bienvenido " + empleado.getNombre() + " ----");
-                        this.empleado = empleado;
-                    } else {
-                        System.out.println("Contraseña incorrecto");
-                    }
+                    comprobarPassw(empleado, pass);
                 } else {
                     System.out.println("Codigo incorrecto");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Solo se adminten numeros");
                 sc.next();
+            }catch(usuarioIncorrecto e){
+                System.out.println(e.getMessage());
+            
             }
 
+        }
+    }
+
+    public void comprobarPassw(Empleado empleado, String pass) {
+        if (empleado.getPassword().equals(pass)) {
+            System.out.println("");
+            System.out.println("\t---- Bienvenido " + empleado.getNombre() + " ----");
+            this.empleado = empleado;
+        } else {
+            throw new usuarioIncorrecto(CodigoError.ERRROR_PASSWORD_INCORRECTO);
         }
     }
 
     public void cambiarPasswordEmpleado() {
         Scanner sc = new Scanner(System.in);
         int codigo, indice = 0;
-        String nombreFile = "empleados.txt";
+
         boolean cambioPasswdOK;
         List<Empleado> empleado = new EmpleadoDAOImp().leerEmpleado();
 
@@ -72,7 +81,7 @@ public class Empleado_Controlador {
                             System.out.println("Se cambio la contraseña satisfactoriamente");
 
                         } else {
-                            System.out.println("No se ha podiso actualizar el archivo" + nombreFile);
+                            System.out.println("No se ha podiso actualizar el archivo");
                         }
 
                     } else {
